@@ -134,11 +134,11 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
             throw new NotImplementedException();
         }
 
-        public DoubleLinkedList MergeSorted(DoubleLinkedList listA, DoubleLinkedList listB, SortDirection direction)
+        public DoubleLinkedList MergeSorted(DoubleLinkedList listB, SortDirection direction)
         {
             DoubleLinkedList mergedList = new DoubleLinkedList();
 
-            Node nodeA = listA.head;
+            Node nodeA = this.head;
             Node nodeB = listB.head;
 
             if (direction == SortDirection.Asc)

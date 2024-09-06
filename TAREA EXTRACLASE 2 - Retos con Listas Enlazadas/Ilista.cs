@@ -19,6 +19,6 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
 
         int GetMiddle();
 
-        void MergeSorted(IList listA, IList listB, SortDirection direction); //Listo
+        void MergeSorted(DoubleLinkedList listB, SortDirection direction); //Listo
     }
 }
