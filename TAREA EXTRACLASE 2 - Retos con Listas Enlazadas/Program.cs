@@ -9,23 +9,24 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
         {
             DoubleLinkedList lista = new DoubleLinkedList();
 
-            lista.add(1);
-            lista.add(2);
-            lista.add(3);
-            lista.add(4);
+            lista.AddLast(1);
+            lista.AddLast(2);
+            lista.AddLast(3);
+            lista.AddLast(4);
+
 
             DoubleLinkedList lista2 = new DoubleLinkedList();
 
-            //lista2.add(3);
-            //lista2.add(4);
-            lista2.add(5);
-            lista2.add(6);
+            lista2.AddLast(3);
+            lista2.AddLast(4);
+            lista2.AddLast(5);
+            lista2.AddLast(6);
 
-            DoubleLinkedList mergeList = lista.MergeSorted(lista2, lista, SortDirection.Asc);
+            lista.MergeSorted(lista2, SortDirection.Desc);
 
-            Node currentNode = mergeList.head;
+            Node currentNode = lista.head;
 
-            for (int i = 0; i < mergeList.size; i++) 
+            for (int i = 0; i < lista.size; i++) 
             {
                 Console.WriteLine(currentNode.value.ToString());
                 currentNode = currentNode.next;

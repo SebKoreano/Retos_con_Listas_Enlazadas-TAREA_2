@@ -20,7 +20,7 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
             this.size = 0;
         }
 
-        public bool add(int element)
+        public bool AddLast(int element)
         {
             Node newNode = new Node(element);
             if (this.head == null)
@@ -70,42 +70,64 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
 
         public int DeleteFirst()
         {
-            if (this.head == null)
-            {
-                throw new InvalidOperationException("No such element.");
-            }
+            ValidHead();
 
             int headvalue = this.head.value;
             this.head = this.head.next;
+
             if (this.head != null)
             {
                 this.head.prev = null;
             }
+
             this.size--;
             return headvalue;
         }
 
         public int DeleteLast()
         {
-            throw new NotImplementedException();
+            ValidHead();
+
+            Node currentNode = this.head;
+
+            while (currentNode.next != null)
+            {
+                currentNode = currentNode.next;
+            }
+
+            int nodeValue = currentNode.value;
+
+            if (currentNode.prev != null)
+            {
+                currentNode.prev.next = null;
+            }
+            else
+            {
+                currentNode = null;
+            }
+
+            this.size--;
+            return nodeValue;
         }
 
-        public bool DeleteValue(int value)
+        private void ValidHead()
         {
             if (this.head == null)
             {
                 throw new InvalidOperationException("No such element.");
             }
+        }
+
+        public bool DeleteValue(int value)
+        {
+            ValidHead();
+
             if (this.head.value == value)
             {
-                this.head = this.head.next;
-                if (this.head != null)
-                {
-                    this.head.prev = null;
-                }
-                this.size--;
+                DeleteFirst();
                 return true;
             }
+
             Node current = this.head;
             while (current.next != null)
             {
@@ -129,25 +151,24 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
             throw new NotImplementedException();
         }
 
-        public void MergeSorted(IList listA, IList listB, SortDirection direction)
+        public void MergeSorted(DoubleLinkedList listB, SortDirection direction)
         {
-            throw new NotImplementedException();
-        }
+            if (listB == null)
+            {
+                throw new InvalidOperationException("ListB can't be null.");
+            }
 
-        public DoubleLinkedList MergeSorted(DoubleLinkedList listB, SortDirection direction)
-        {
-            DoubleLinkedList mergedList = new DoubleLinkedList();
-
-            Node nodeA = this.head;
+            DoubleLinkedList listA = CopyList(this);
+            Node nodeA = listA.head;
             Node nodeB = listB.head;
 
             if (direction == SortDirection.Asc)
             {
-                return SortAsc(nodeA, nodeB, mergedList);
+                SortAsc(nodeA, nodeB);
             }
             else if (direction == SortDirection.Desc)
             {
-                return SortDesc(nodeA, nodeB, mergedList);
+                SortDesc(nodeA, nodeB);
             }
             else
             {
@@ -155,18 +176,33 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
             }
         }
 
-        private DoubleLinkedList SortAsc(Node nodeA, Node nodeB, DoubleLinkedList mergedList)
+        private DoubleLinkedList CopyList(DoubleLinkedList listToCopy)
+        {
+            Node currentNode = listToCopy.head;
+            DoubleLinkedList list = new DoubleLinkedList();
+
+            for (int i = 0; i < this.size; i++)
+            {
+                list.AddLast(currentNode.value);
+                currentNode = currentNode.next;
+            }
+
+            return list;
+        }
+
+        private void SortAsc(Node nodeA, Node nodeB)
         {
             while (nodeA != null && nodeB != null)
             {
                 if (nodeA.value <= nodeB.value)
                 {
-                    mergedList.add(nodeA.value);
+                    DeleteValue(nodeA.value);
+                    this.AddLast(nodeA.value);
                     nodeA = nodeA.next;
                 }
                 else
                 {
-                    mergedList.add(nodeB.value);
+                    this.AddLast(nodeB.value);
                     nodeB = nodeB.next;
                 }
             }
@@ -174,31 +210,31 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
             // Añadir nodos restantes
             while (nodeA != null)
             {
-                mergedList.add(nodeA.value);
+                DeleteValue(nodeA.value);
+                this.AddLast(nodeA.value);
                 nodeA = nodeA.next;
             }
 
             while (nodeB != null)
             {
-                mergedList.add(nodeB.value);
+                this.AddLast(nodeB.value);
                 nodeB = nodeB.next;
             }
-
-            return mergedList;
         }
 
-        private DoubleLinkedList SortDesc(Node nodeA, Node nodeB, DoubleLinkedList mergedList)
+        private void SortDesc(Node nodeA, Node nodeB)
         {
             while (nodeA != null && nodeB != null)
             {
                 if (nodeA.value <= nodeB.value)
                 {
-                    mergedList.AddFirst(nodeA.value);
+                    DeleteValue(nodeA.value);
+                    this.AddFirst(nodeA.value);
                     nodeA = nodeA.next;
                 }
                 else
                 {
-                    mergedList.AddFirst(nodeB.value);
+                    this.AddFirst(nodeB.value);
                     nodeB = nodeB.next;
                 }
             }
@@ -206,18 +242,18 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
             // Añadir nodos restantes
             while (nodeA != null)
             {
-                mergedList.AddFirst(nodeA.value);
+                DeleteValue(nodeA.value);
+                this.AddFirst(nodeA.value);
                 nodeA = nodeA.next;
             }
 
             while (nodeB != null)
             {
-                mergedList.AddFirst(nodeB.value);
+                this.AddFirst(nodeB.value);
                 nodeB = nodeB.next;
             }
-
-            return mergedList;
         }
+
     }
 
 }
