@@ -10,10 +10,10 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
         {
             DoubleLinkedList lista = new DoubleLinkedList();
 
-            //lista.AddLast(1);
+            lista.AddLast(1);
             lista.AddLast(2);
-            //lista.AddLast(3);
-            //lista.AddLast(4);
+            lista.AddLast(3);
+            lista.AddLast(4);
 
 
             DoubleLinkedList lista2 = new DoubleLinkedList();
@@ -24,12 +24,11 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
             lista2.AddLast(6);
 
             //lista.MergeSorted(lista2, SortDirection.Asc);
+            //Invert(lista);
 
-            PrintList(lista);
-
-            InvertList(lista);
-
-            PrintList(lista);
+            PrintList(lista2);
+            Console.WriteLine("-------------------------");
+            Console.WriteLine($"Middle: {lista2.GetMiddle()}");
         }
 
         static void PrintList(DoubleLinkedList lista)
@@ -43,14 +42,14 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
             }
         }
 
-        static DoubleLinkedList InvertList(DoubleLinkedList lista)
+        static DoubleLinkedList Invert(DoubleLinkedList lista)
         {
             if (lista == null)
             {
                 throw new InvalidOperationException("List can't be null.");
             }
 
-            lista.Invert();
+            lista.InvertList();
             return lista;
         }
 

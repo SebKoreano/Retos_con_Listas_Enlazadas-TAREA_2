@@ -11,13 +11,29 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
 {
     public class DoubleLinkedList : ILista
     { 
-        public Node head;
+        public Node? head;
         public int size;
+        private Node? middle;
 
         public DoubleLinkedList()
         {
             this.head = null;
+            this.middle = null;
             this.size = 0;
+        }
+
+        private void AddHead(Node newNode)
+        {
+            middle = newNode;
+            this.head = newNode;
+        }
+
+        private void ModMiddle()
+        {
+            if (size % 2 == 0)
+            {
+                middle = middle.next;
+            }
         }
 
         public bool AddLast(int element)
@@ -25,7 +41,7 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
             Node newNode = new Node(element);
             if (this.head == null)
             {
-                this.head = newNode;
+                AddHead(newNode);
             }
             else
             {
@@ -37,7 +53,9 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
                 current.next = newNode;
                 newNode.prev = current;
             }
+
             this.size++;
+            ModMiddle();
             return true;
         }
 
@@ -47,7 +65,7 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
 
             if (this.head == null)
             {
-                this.head = newNode;
+                AddHead(newNode);
             }
             else
             {
@@ -57,14 +75,32 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
                 this.head = newNode;       
             }
 
-            this.size++;  
+            this.size++;
+            ModMiddle();
             return true;
         }
 
 
-        public void InsertInOrder(int value)
+        public void InsertInOrder(int element)
         {
-            throw new NotImplementedException();
+            Node newNode = new Node(element);
+            if (this.head == null)
+            {
+                AddHead(newNode);
+            }
+            else
+            {
+                Node current = this.head;
+                while (current.next != null)
+                {
+                    current = current.next;
+                }
+                current.next = newNode;
+                newNode.prev = current;
+            }
+
+            this.size++;
+            ModMiddle();
         }
 
         public int DeleteFirst()
@@ -147,7 +183,11 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
 
         public int GetMiddle()
         {
-            throw new NotImplementedException();
+            if (middle  == null)
+            {
+                throw new InvalidOperationException("No such element.");
+            }
+            return middle.value;
         }
 
         private DoubleLinkedList CopyList(DoubleLinkedList listToCopy)
@@ -228,7 +268,7 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
         }
 
         //Invierte los punteros para invertir el orden la lista
-        public void Invert()
+        public void InvertList()
         {
             Node currentNode = this.head;
             Node temp = null;
