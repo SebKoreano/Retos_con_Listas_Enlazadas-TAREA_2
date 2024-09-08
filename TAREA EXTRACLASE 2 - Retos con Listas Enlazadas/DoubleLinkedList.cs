@@ -47,18 +47,17 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
 
             if (this.head == null)
             {
-                // Si la lista está vacía, el nuevo nodo es la cabeza
                 this.head = newNode;
             }
             else
             {
                 // Ajustar los punteros para insertar el nuevo nodo al principio
-                newNode.next = this.head;  // El siguiente del nuevo nodo es la actual cabeza
-                this.head.prev = newNode;   // La cabeza anterior ahora apunta al nuevo nodo como su previo
-                this.head = newNode;        // El nuevo nodo se convierte en la cabeza
+                newNode.next = this.head;  
+                this.head.prev = newNode;   
+                this.head = newNode;       
             }
 
-            this.size++;  // Aumenta el tamaño de la lista
+            this.size++;  
             return true;
         }
 
@@ -151,31 +150,6 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
             throw new NotImplementedException();
         }
 
-        public void MergeSorted(DoubleLinkedList listB, SortDirection direction)
-        {
-            if (listB == null)
-            {
-                throw new InvalidOperationException("ListB can't be null.");
-            }
-
-            DoubleLinkedList listA = CopyList(this);
-            Node nodeA = listA.head;
-            Node nodeB = listB.head;
-
-            if (direction == SortDirection.Asc)
-            {
-                SortAsc(nodeA, nodeB);
-            }
-            else if (direction == SortDirection.Desc)
-            {
-                SortDesc(nodeA, nodeB);
-            }
-            else
-            {
-                throw new ArgumentException("Invalid sorting direction provided.");
-            }
-        }
-
         private DoubleLinkedList CopyList(DoubleLinkedList listToCopy)
         {
             Node currentNode = listToCopy.head;
@@ -190,19 +164,38 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
             return list;
         }
 
-        private void SortAsc(Node nodeA, Node nodeB)
+        public void MergeSorted(DoubleLinkedList listB, SortDirection direction)
+        {
+            if (listB == null)
+            {
+                throw new InvalidOperationException("ListB can't be null.");
+            }
+
+            DoubleLinkedList listA = CopyList(this);
+            Node nodeA = listA.head;
+            Node nodeB = listB.head;
+
+            if (direction != SortDirection.Asc && direction != SortDirection.Desc)
+            {
+                throw new ArgumentException("Invalid sorting direction provided.");
+            }
+
+            Sort(nodeA, nodeB, direction);
+        }
+
+        private void Sort(Node nodeA, Node nodeB, SortDirection direction)
         {
             while (nodeA != null && nodeB != null)
             {
                 if (nodeA.value <= nodeB.value)
                 {
                     DeleteValue(nodeA.value);
-                    this.AddLast(nodeA.value);
+                    AscOrDesc(direction, nodeA);
                     nodeA = nodeA.next;
                 }
                 else
                 {
-                    this.AddLast(nodeB.value);
+                    AscOrDesc(direction, nodeB);
                     nodeB = nodeB.next;
                 }
             }
@@ -211,47 +204,48 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
             while (nodeA != null)
             {
                 DeleteValue(nodeA.value);
-                this.AddLast(nodeA.value);
+                AscOrDesc(direction, nodeA);
                 nodeA = nodeA.next;
             }
 
             while (nodeB != null)
             {
-                this.AddLast(nodeB.value);
+                AscOrDesc(direction, nodeB);
                 nodeB = nodeB.next;
             }
         }
 
-        private void SortDesc(Node nodeA, Node nodeB)
+        private void AscOrDesc(SortDirection direction, Node node)
         {
-            while (nodeA != null && nodeB != null)
+            if (direction == SortDirection.Asc)
             {
-                if (nodeA.value <= nodeB.value)
-                {
-                    DeleteValue(nodeA.value);
-                    this.AddFirst(nodeA.value);
-                    nodeA = nodeA.next;
-                }
-                else
-                {
-                    this.AddFirst(nodeB.value);
-                    nodeB = nodeB.next;
-                }
+                this.AddLast(node.value);
+            }
+            else
+            {
+                this.AddFirst(node.value);
+            }
+        }
+
+        //Invierte los punteros para invertir el orden la lista
+        public void Invert()
+        {
+            Node currentNode = this.head;
+            Node temp = null;
+
+            while (currentNode != null)
+            {
+                temp = currentNode.prev;
+                currentNode.prev = currentNode.next;
+                currentNode.next = temp;
+                currentNode = currentNode.prev;
             }
 
-            // Añadir nodos restantes
-            while (nodeA != null)
+            if (temp != null)
             {
-                DeleteValue(nodeA.value);
-                this.AddFirst(nodeA.value);
-                nodeA = nodeA.next;
+                this.head = temp.prev;
             }
 
-            while (nodeB != null)
-            {
-                this.AddFirst(nodeB.value);
-                nodeB = nodeB.next;
-            }
         }
 
     }

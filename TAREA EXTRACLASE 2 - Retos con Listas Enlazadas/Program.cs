@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
@@ -9,10 +10,10 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
         {
             DoubleLinkedList lista = new DoubleLinkedList();
 
-            lista.AddLast(1);
+            //lista.AddLast(1);
             lista.AddLast(2);
-            lista.AddLast(3);
-            lista.AddLast(4);
+            //lista.AddLast(3);
+            //lista.AddLast(4);
 
 
             DoubleLinkedList lista2 = new DoubleLinkedList();
@@ -22,15 +23,36 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
             lista2.AddLast(5);
             lista2.AddLast(6);
 
-            lista.MergeSorted(lista2, SortDirection.Desc);
+            //lista.MergeSorted(lista2, SortDirection.Asc);
 
+            PrintList(lista);
+
+            InvertList(lista);
+
+            PrintList(lista);
+        }
+
+        static void PrintList(DoubleLinkedList lista)
+        {
             Node currentNode = lista.head;
 
-            for (int i = 0; i < lista.size; i++) 
+            for (int i = 0; i < lista.size; i++)
             {
                 Console.WriteLine(currentNode.value.ToString());
                 currentNode = currentNode.next;
             }
         }
+
+        static DoubleLinkedList InvertList(DoubleLinkedList lista)
+        {
+            if (lista == null)
+            {
+                throw new InvalidOperationException("List can't be null.");
+            }
+
+            lista.Invert();
+            return lista;
+        }
+
     }
 }
