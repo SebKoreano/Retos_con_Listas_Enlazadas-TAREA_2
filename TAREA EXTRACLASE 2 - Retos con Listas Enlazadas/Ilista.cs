@@ -9,16 +9,14 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
 {
     public interface ILista
     {
-        void InsertInOrder(int value);
-
-        int DeleteFirst(); //Listo
-
-        int DeleteLast(); 
-
-        bool DeleteValue(int value);  //Listo
-
+        bool AddLast(int element);
+        bool AddFirst(int element);
+        void InsertInOrder(int element);
+        int DeleteFirst();
+        int DeleteLast();
+        bool DeleteValue(int value);
         int GetMiddle();
-
-        void MergeSorted(DoubleLinkedList listB, SortDirection direction); //Listo
+        void MergeSorted(DoubleLinkedList listB, SortDirection direction);
+        void InvertList();
     }
 }

@@ -30,10 +30,15 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
 
         private void ModMiddle()
         {
-            if (size % 2 == 0)
+            int middleIndex = (size / 2) + 1;
+            Node currentNode = this.head;
+
+            for (int i = 1; i < middleIndex; i++)
             {
-                middle = middle.next;
+                currentNode = currentNode.next;
             }
+
+            this.middle = currentNode;
         }
 
         public bool AddLast(int element)
@@ -91,16 +96,28 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
             else
             {
                 Node current = this.head;
-                while (current.next != null)
+                while (current != null && element > current.value)
                 {
                     current = current.next;
                 }
-                current.next = newNode;
-                newNode.prev = current;
+                if (current == null)
+                {
+                    AddLast(element);
+                } 
+                else if (current.prev == null)
+                {
+                    AddFirst(element);  
+                }
+                else
+                {
+                    current.prev.next = newNode;
+                    newNode.prev = current.prev;
+                    current.prev = newNode;
+                    newNode.next = current;
+                    this.size++;
+                    ModMiddle();
+                }
             }
-
-            this.size++;
-            ModMiddle();
         }
 
         public int DeleteFirst()
@@ -221,6 +238,7 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
             }
 
             Sort(nodeA, nodeB, direction);
+            ModMiddle();
         }
 
         private void Sort(Node nodeA, Node nodeB, SortDirection direction)
@@ -286,6 +304,7 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
                 this.head = temp.prev;
             }
 
+            ModMiddle();
         }
 
     }

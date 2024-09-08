@@ -1,1 +1,0 @@
-1. Modificar el metodo mergesort para que se guarden los datos en la listaA

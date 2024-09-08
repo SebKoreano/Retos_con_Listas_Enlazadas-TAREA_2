@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
 {
+    public enum SortDirection { Asc, Desc }
+
     internal class Program
     {
         static void Main(string[] args)
@@ -11,24 +13,30 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
             DoubleLinkedList lista = new DoubleLinkedList();
 
             lista.AddLast(1);
-            lista.AddLast(2);
+            //lista.AddLast(2);
             lista.AddLast(3);
             lista.AddLast(4);
 
 
             DoubleLinkedList lista2 = new DoubleLinkedList();
 
-            lista2.AddLast(3);
-            lista2.AddLast(4);
-            lista2.AddLast(5);
-            lista2.AddLast(6);
+            lista2.AddLast(1);
+            //lista2.AddLast(4);
+            lista2.AddLast(2);
+            //lista2.AddLast(6);
 
-            //lista.MergeSorted(lista2, SortDirection.Asc);
-            //Invert(lista);
+            
+
+            lista2.MergeSorted(lista, SortDirection.Asc);
+
+            lista2.InsertInOrder(10);
+
+            //Invert(lista2);
 
             PrintList(lista2);
             Console.WriteLine("-------------------------");
             Console.WriteLine($"Middle: {lista2.GetMiddle()}");
+            Console.WriteLine($"Size: {lista2.size}");
         }
 
         static void PrintList(DoubleLinkedList lista)
