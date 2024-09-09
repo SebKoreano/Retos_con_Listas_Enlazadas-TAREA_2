@@ -6,7 +6,7 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
 {
     public enum SortDirection { Asc, Desc }
 
-    internal class Program
+    public class Program
     {
         static void Main(string[] args)
         {
@@ -50,7 +50,7 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
             }
         }
 
-        static DoubleLinkedList Invert(DoubleLinkedList lista)
+        public static DoubleLinkedList Invert(DoubleLinkedList lista)
         {
             if (lista == null)
             {
