@@ -162,6 +162,7 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
             return nodeValue;
         }
 
+        //Verifica si head es null
         private void ValidHead()
         {
             if (this.head == null)
@@ -170,6 +171,7 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
             }
         }
 
+        //Delete input value
         public bool DeleteValue(int value)
         {
             ValidHead();
@@ -207,6 +209,7 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
             return middle.value;
         }
 
+        //Copy the input list
         private DoubleLinkedList CopyList(DoubleLinkedList listToCopy)
         {
             Node currentNode = listToCopy.head;
@@ -273,6 +276,7 @@ namespace TAREA_EXTRACLASE_2___Retos_con_Listas_Enlazadas
             }
         }
 
+        //Verifica en donde insertar los nodos dependiendo de la direccion
         private void AscOrDesc(SortDirection direction, Node node)
         {
             if (direction == SortDirection.Asc)
